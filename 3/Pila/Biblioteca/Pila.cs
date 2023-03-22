@@ -10,12 +10,12 @@ namespace ListaEnlazada
 
     public class Pila
     {
-        public ListaEnlazada lista;
+        private ListaEnlazada lista;
 
         public uint NumeroMaxElementos;
 
-        public bool EstaVacía;
-        public bool EstaLlena;
+        private bool EstaVacía;
+        private bool EstaLlena;
 
         public Pila(uint NumeroMaxElementos)
         {
@@ -26,6 +26,10 @@ namespace ListaEnlazada
             lista = new ListaEnlazada();
             EstaLlena = false;
             EstaVacía = true;
+
+#if DEBUG
+            Invariante();
+#endif
 
         }
 

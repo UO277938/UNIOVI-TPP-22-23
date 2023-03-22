@@ -119,12 +119,12 @@ namespace ListaEnlazada
 
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("Lista: ");
-
             if (NElements <= 0)
                 return "No hay Nodos.";
             Nodo aux = Head;
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("Lista: ");
 
             int contador = 0;
             while (contador < NElements)
