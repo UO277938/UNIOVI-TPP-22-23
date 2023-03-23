@@ -4,13 +4,12 @@ using System.Linq;
 
 namespace Modelo
 {
-    static public class FindFilterReduce
+    static public class ExtensionMethods
     {
 
+        //Firstordefault en Linq
         public static T Buscar<T>(this IEnumerable<T> collection, Predicate<T> func)
         {
-            //collection.Select es el Map
-
             foreach (T d in collection)
             {
                 if (func(d))
@@ -19,6 +18,7 @@ namespace Modelo
             return default;
         }
 
+        //Where en Linq
         public static IEnumerable<T> Filtrar<T>(this IEnumerable<T> collection, Predicate<T> func)
         {
             T[] result = new T[collection.Count()];
@@ -26,11 +26,12 @@ namespace Modelo
             foreach (T d in collection)
             {
                 if (func(d))
-                    result[i] = d;
+                    result[i++] = d;
             }
             return result;
         }
 
+        //Aggregate
         public static Q Reducir<T, Q>(this IEnumerable<T> collection, Func<Q, T, Q> func, Q start = default(Q))
         {
             Q acc = start;
@@ -42,6 +43,20 @@ namespace Modelo
             return acc;
         }
 
+        public static IEnumerable<T> Invertir<T>(this IEnumerable<T> collection)
+        {
+            int count = collection.Count();
+            T[] ret = new T[count]; //salida
+            int i = 1;
+            collection.ForEach(x => {
+                
+                ret[count - i++] = x;
+                });
+
+            return ret;
+        }
+
+        //Select en Linq
         public static IEnumerable<Q> Map<T, Q>(this IEnumerable<T> coleccion, Func<T, Q> func)
         {
             IList<Q> lista = new List<Q>();

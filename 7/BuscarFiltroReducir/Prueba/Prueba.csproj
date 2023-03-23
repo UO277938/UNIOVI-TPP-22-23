@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BuscarFiltrarReducir\BuscarFiltrarReducir.csproj" />
+    <ProjectReference Include="..\ListaGenerica\Biblioteca\Biblioteca.csproj" />
   </ItemGroup>
 
 </Project>
