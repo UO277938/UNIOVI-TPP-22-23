@@ -124,12 +124,12 @@ namespace Delegados
 
         Cumplen[] cumplen = { MenosPaginas, MasTarde } ;
 
-        public static int Contar(IEnumerable<T> coleccion, Cumplen funcion)
+        /**public static int Contar(IEnumerable<T> coleccion, Cumplen funcion)
         {
             if(funcion)
 
         }
-
+        **/
 
 
         
