@@ -8,10 +8,10 @@ namespace ListaEnlazada
     {
         static void Main(string[] args)
         {
-            ListaEnlazada<int> lista = new ListaEnlazada<int>();
+            ListaEnlazada<object> lista = new ListaEnlazada<object>();
 
-            lista.Añadir(7); //HEAD.
-            lista.Añadir(8);
+            lista.Añadir(null); //HEAD.
+            lista.Añadir(null);
             lista.Añadir(9);
             lista.Añadir(10);
 
@@ -21,33 +21,37 @@ namespace ListaEnlazada
             Console.WriteLine(lista.GetElement(1));
             Console.WriteLine(lista.GetElement(2));
             Console.WriteLine(lista.GetElement(3));
-
+            
+            Console.WriteLine(lista.Contiene(null));  //true
+            
             Console.WriteLine(lista.Contiene(7));  //true
             Console.WriteLine(lista.Contiene(88)); //false
+            Console.WriteLine(lista.Contiene(10));  //true
 
             lista.Borrar(8);
             Console.WriteLine(lista.ToString());
 
-            lista.Borrar(7);
+            lista.Borrar(null);
             Console.WriteLine(lista.ToString()); 
 
             lista.Borrar("Hola");
             Console.WriteLine(lista.ToString());
 
-            Console.WriteLine(lista.Contiene(10));  //false
+            Console.WriteLine(lista.Contiene(10));  //true
             Console.WriteLine(lista.Contiene(55));  //false 
 
             Console.WriteLine("ITERADOR");
 
-            IEnumerator<int> listaE = lista.GetEnumerator();
+            IEnumerator<object> listaE = lista.GetEnumerator();
             while (listaE.MoveNext())
             {
-                Console.WriteLine((int)listaE.Current);
+                Console.WriteLine(listaE.Current);
             }
 
             listaE.Reset();
             listaE.MoveNext();
             Console.WriteLine(listaE.Current);
+
         }
     }
 }

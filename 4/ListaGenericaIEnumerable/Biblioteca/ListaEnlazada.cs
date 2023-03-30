@@ -53,9 +53,44 @@ namespace ListaEnlazada
             if (Head == null)
                 return false;
 
+            if (valor == null)
+                return BorrarNull();
+
             Nodo aux = Head;
             //Nodo a buscar es la raiz
-            if (Head.Value.Equals(valor))
+            if (Head.Value != null)
+            {
+                if (Head.Value.Equals(valor))
+                {
+                    Head = Head.NextNode;
+                    NElements--;
+                    return true;
+                }
+            }
+
+            //Si el nodo no es la raiz
+            while (aux.NextNode != null)
+            {
+                if (aux.NextNode.Value != null)
+                {
+                    if (aux.NextNode.Value.Equals(valor)) //Si el siguiente tiene el valor
+                    {
+                        aux.NextNode = aux.NextNode.NextNode; //Cortamos su referencia, saltandolo
+                        NElements--;
+                        return true;
+                    }
+                }
+                aux = aux.NextNode; //Seguimos buscando
+            }
+            //No hay nodo con ese valor
+            return false;
+        }
+
+        private bool BorrarNull()
+        {
+            Nodo aux = Head;
+            //Nodo a buscar es la raiz
+            if (Head.Value == null)
             {
                 Head = Head.NextNode;
                 NElements--;
@@ -65,11 +100,11 @@ namespace ListaEnlazada
             //Si el nodo no es la raiz
             while (aux.NextNode != null)
             {
-                if (aux.NextNode.Value.Equals(valor)) //Si el siguiente tiene el valor
-                {
-                    aux.NextNode = aux.NextNode.NextNode; //Cortamos su referencia, saltandolo
-                    NElements--;
-                    return true;
+               if (aux.NextNode.Value == null) //Si el siguiente tiene el valor
+                    {
+                        aux.NextNode = aux.NextNode.NextNode; //Cortamos su referencia, saltandolo
+                        NElements--;
+                        return true;
                 }
                 aux = aux.NextNode; //Seguimos buscando
             }
@@ -83,13 +118,34 @@ namespace ListaEnlazada
             if (Head == null)
                 return false;
 
+            if(valor == null)
+                return ContineNull();
+
             Nodo nodo = Head;
-            if (nodo.Value.Equals(valor))
+            if(nodo.Value != null)
+                if (nodo.Value.Equals(valor))
+                    return true;
+
+            while (nodo.NextNode != null)
+            {
+                if (nodo.NextNode.Value != null)
+                    if (nodo.NextNode.Value.Equals(valor))
+                        return true;
+
+                nodo = nodo.NextNode;
+            }
+            return false;
+        }
+
+        private bool ContineNull()
+        {
+            Nodo nodo = Head;
+            if (nodo.Value == null)
                 return true;
 
             while (nodo.NextNode != null)
             {
-                if (nodo.NextNode.Value.Equals(valor))
+                if (nodo.NextNode.Value == null)
                     return true;
 
                 nodo = nodo.NextNode;
@@ -145,6 +201,42 @@ namespace ListaEnlazada
         {
             throw new NotImplementedException();
         }
+
+        /*public Func<T> ClausuraIEnumerator(IEnumerable<T> lista, out Func<bool> moveNext, out Action reset, out Action dispose)
+        {
+            List<T> list = new List<T>();
+            foreach(var item in lista)
+            {
+                list.Add(item);
+            }
+
+            T actual = list[0];
+            int index = 0;
+
+            moveNext = () =>
+            {
+                if(list[index] != null)
+                {
+                    actual = list[index];
+                    index++;
+                    return true;
+                }
+                return false;
+            };
+
+            reset = () =>
+             {
+                 index = 0;
+             };
+
+            dispose = () => { };
+
+            return () =>
+            {
+                return actual;
+            };
+        }*/
+
 
         public class ListaIEnumerator : IEnumerator<T>
         {

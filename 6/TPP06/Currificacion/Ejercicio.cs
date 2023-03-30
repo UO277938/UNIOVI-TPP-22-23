@@ -51,6 +51,7 @@ namespace Currificacion
             return dividendo == cociente * divisor + resto;
         }
 
+
         public static Func<int,Func<int,Func< int, bool>>> ComprobarDivisionCurry(int dividendo)
         {
             return (divisor) =>

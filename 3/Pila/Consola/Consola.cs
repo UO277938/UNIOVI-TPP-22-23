@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ListaEnlazada
+namespace ListaEnlazadaB
 {
 
     internal class Consola
@@ -39,6 +39,27 @@ namespace ListaEnlazada
 
             Console.WriteLine(lista.Contiene("Hola"));  //false
             Console.WriteLine(lista.Contiene(7.55));  //false 
+
+            Console.WriteLine("-----PILA");
+            Pila pila = new Pila(5);
+            pila.Push(7);
+            pila.Push(null);
+            pila.Push("Hola");
+
+
+            Console.WriteLine(pila.ToString());
+
+            Console.WriteLine(pila.Pop().ToString());
+
+            Console.WriteLine(pila.ToString());
+
+            Console.WriteLine(pila.Pop().ToString());
+
+            Console.WriteLine(pila.ToString());
+
+            Console.WriteLine(pila.Pop().ToString());
+
+            Console.WriteLine(pila.ToString());
 
         }
     }

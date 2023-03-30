@@ -22,8 +22,43 @@ namespace Clausuras
             Añádase código en el método Main para probar ambas versiones.
         
          */
+        public static Func<int> CrearNumerosAleatorios(int rango, out Func<bool> reset, out Action<int> setInicial)
+        {
+            //Se define el estado
+            int _rango = rango;
+            int inicial = rango;
 
-        
+            //Funciones a definir
+            Random rand = new Random();
+
+            reset = () =>
+            {
+                _rango = inicial;
+                Console.WriteLine("RESET");
+                return true;
+            };
+
+            setInicial = (valor) =>
+            {
+                inicial = valor;
+                Console.WriteLine("NUEVO VALOR INICIAL: " + valor);
+            };
+
+
+            return () =>
+            {
+                if (_rango <= 0)
+                {
+                    _rango = inicial;
+                    Console.WriteLine("VOLVEMOS A INICIAL: " + _rango);
+                }
+                _rango = rand.Next(0, _rango);
+                Console.WriteLine("NUEVO VALOR: " + _rango);
+                return _rango;
+            };
+
+        }
+
 
         private static void NumerosAleatorios(int inicial)
         {
@@ -48,6 +83,22 @@ namespace Clausuras
 
             */
 
+        public static Func<int> ClausuraFibonacci()
+        {
+            int a = 0;
+            int b = 1;
+
+            int result;
+
+            return () =>
+            {
+                result = a + b;
+                a = b;
+                b = result;
+                return result;
+            };
+        }
+
 
 
             /* Ejercicio Clase 2
@@ -56,6 +107,17 @@ namespace Clausuras
                Pruébese la implementación para el ejemplo propuesto.
 
              */
+
+        public static void ClausuraWhile(Func<bool> condition, Action accion, Action cont)
+        {
+            cont();
+            if (condition())
+            {
+                accion();
+                ClausuraWhile(condition, accion, cont);
+            }
+            
+        }
 
 
             public static void BucleWhileObjetos()

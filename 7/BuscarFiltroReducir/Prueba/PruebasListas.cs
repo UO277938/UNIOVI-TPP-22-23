@@ -6,7 +6,6 @@ using ListaEnlazada;
 
 namespace Pruebas
 {
-    
 
     public class PruebasListas
     {
@@ -25,14 +24,14 @@ namespace Pruebas
             listaP = new ListaEnlazada<Persona>();
             foreach (Persona persona in personas)
             {
-                listaP.AÒadir(persona);
+                listaP.A√±adir(persona);
 
             }
 
             listaA = new ListaEnlazada<Angulo>();
             foreach (Angulo a in angulos)
             {
-                listaA.AÒadir(a);
+                listaA.A√±adir(a);
 
             }
         }
@@ -57,7 +56,7 @@ namespace Pruebas
         public void TestFiltrar()
         {
             IEnumerable<Persona> juanes = listaP.Filtrar(p => p.Nombre.Equals("Juan") );
-            Assert.AreEqual(personas[1], juanes.Buscar(j=> j.Apellido.Equals("PÈrez") ));
+            Assert.AreEqual(personas[1], juanes.Buscar(j=> j.Apellido.Equals("P√©rez") ));
             Assert.AreEqual(personas[8], juanes.Buscar(j => j.Apellido.Equals("Hevia") ));
 
 
@@ -70,6 +69,8 @@ namespace Pruebas
             IEnumerable<Angulo> cuadrantes = angulos.Filtrar(a => a.Grados >= 90 && a.Grados < 180);
             Assert.AreEqual(angulos[90], cuadrantes.Buscar(a => a.Grados.Equals(90)));
             Assert.AreEqual(angulos[179], cuadrantes.Buscar(a => a.Grados.Equals(179)));
+
+
         }
 
         [Test]
@@ -81,7 +82,7 @@ namespace Pruebas
             var senMaximo = listaA.Reducir( (max, angulo) => angulo.Seno() > max ? angulo.Seno() : max, 0.0);
             Assert.AreEqual(1.0, senMaximo);
 
-            var numNombre = listaP.Reducir((num, persona) => persona.Nombre.Equals("MarÌa") ? num + 1 : num, 0);
+            var numNombre = listaP.Reducir((num, persona) => persona.Nombre.Equals("Mar√≠a") ? num + 1 : num, 0);
             Assert.AreEqual(2, numNombre);
 
             IEnumerable<Persona> listaInvertidaP = listaP.Invertir();
@@ -93,7 +94,7 @@ namespace Pruebas
             //Select es map
 
             IEnumerable<string> apeNoms = listaP.Map(persona => new string(persona.Apellido + ", " + persona.Nombre));
-            Assert.AreEqual(apeNoms.Buscar(s => s.Equals("DÌaz, MarÌa")), "DÌaz, MarÌa");
+            Assert.AreEqual(apeNoms.Buscar(s => s.Equals("D√≠az, Mar√≠a")), "D√≠az, Mar√≠a");
             Assert.AreEqual(apeNoms.Buscar(s => s.Equals("Hevia, Juan")), "Hevia, Juan");
 
             IEnumerable<int> cuadrante = listaA.Map(angulo => angulo.Grados < 90 ? 1 : angulo.Grados < 180 ? 2 : angulo.Grados < 270 ? 3 : 4);

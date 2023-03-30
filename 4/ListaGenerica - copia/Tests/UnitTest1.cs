@@ -18,11 +18,11 @@ namespace ListaEnlazada
         public void Test1()
 
         {
-            Assert.IsTrue(lista.Añadir(7));
-            Assert.IsTrue(lista.Añadir(7));
-            Assert.IsTrue(lista.Añadir(8));
-            Assert.IsTrue(lista.Añadir(9));
-            Assert.IsTrue(lista.Añadir(12));
+            Assert.IsTrue(lista.Aï¿½adir(7));
+            Assert.IsTrue(lista.Aï¿½adir(7));
+            Assert.IsTrue(lista.Aï¿½adir(8));
+            Assert.IsTrue(lista.Aï¿½adir(9));
+            Assert.IsTrue(lista.Aï¿½adir(12));
             Console.WriteLine(lista.ToString());
 
 

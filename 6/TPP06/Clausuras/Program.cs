@@ -135,6 +135,18 @@ namespace Clausuras
             clausura();
             clausura();
 
+
+            Func<int> fib = Ejercicio.ClausuraFibonacci();
+            Console.WriteLine("NUEVO VALOR FIB: " + fib());
+            Console.WriteLine("NUEVO VALOR FIB: " + fib());
+            Console.WriteLine("NUEVO VALOR FIB: " + fib());
+            Console.WriteLine("NUEVO VALOR FIB: " + fib());
+            Console.WriteLine("NUEVO VALOR FIB: " + fib());
+
+
+            int cont = 0;
+            Ejercicio.ClausuraWhile(() => cont < 5, () => Console.WriteLine("ITERACION: " + cont), () => cont++);
+
         }
 
         static void LimpiarPantalla()

@@ -5,17 +5,17 @@ using System.Text;
 using System.Diagnostics;
 #endif
 
-namespace ListaEnlazada
+namespace ListaEnlazadaB
 {
 
     public class Pila
     {
-        private ListaEnlazada lista;
+        private ListaEnlazada lista; //compposicion , creo 
 
-        public uint NumeroMaxElementos;
+        private uint NumeroMaxElementos;
 
-        private bool EstaVacía;
-        private bool EstaLlena;
+        public bool EstaVacia { get { return lista.NElements == 0; } }
+        public bool EstaLlena { get { return lista.NElements == NumeroMaxElementos; } }
 
         public Pila(uint NumeroMaxElementos)
         {
@@ -24,8 +24,6 @@ namespace ListaEnlazada
 
             this.NumeroMaxElementos=NumeroMaxElementos;
             lista = new ListaEnlazada();
-            EstaLlena = false;
-            EstaVacía = true;
 
 #if DEBUG
             Invariante();
@@ -47,8 +45,6 @@ namespace ListaEnlazada
 
             bool result = lista.Añadir(o);
 
-            if(result) EstaVacía = false;
-            if(lista.NElements==NumeroMaxElementos) EstaLlena=true;
 #if DEBUG
             //PostCondicion
             Debug.Assert(lista.NElements == elementosAntes + 1, "Fallo en postcondición de Pila.Push");
@@ -59,22 +55,27 @@ namespace ListaEnlazada
             return result;
         }
 
-        public Object Pop()
+        public Object Pop(Func<bool> predicado)
         {
-
+            Console.WriteLine("POP");
 #if DEBUG
             Invariante();
 #endif
             //Precondicion
             uint elementosAntes = lista.NElements;
+            Console.WriteLine("NUMEROS ELEMENTOS: " + elementosAntes);
             if (elementosAntes == 0)
                 throw new InvalidOperationException("No hay elementos para borrar.");
+            object valorPop = lista.GetElement(elementosAntes-1);
+            bool result;
+            if (valorPop == null)
+            {
+                Console.WriteLine("ES NULO");
+                result = lista.Borrar(null);
+            }
+            else
+                result = lista.Borrar(valorPop);
 
-            bool result = lista.Borrar(lista.NElements - 1);
-
-            if (result) EstaLlena = false;
-            if(lista.NElements==0) EstaVacía=true;
-            
 #if DEBUG
             //PostCondicion
             Debug.Assert(lista.NElements == elementosAntes - 1, "Fallo en postcondición de Pila.Push");
@@ -85,24 +86,21 @@ namespace ListaEnlazada
             return result;
         }
 
+        public override string ToString()
+        {
+            return lista.ToString();
+        }
+
 #if DEBUG
         private void Invariante()
         {
-            if (lista.NElements == 0)
-            {
-                Debug.Assert(EstaVacía == true, "Error en la invariante.");
-                Debug.Assert(EstaLlena == false, "Error en la invariante.");
-            }
+            Debug.Assert(!(EstaVacia && EstaLlena), "Fallo en invariante de Pila.");
+            //elementos mayor al maximo  / esta llena pero en realidad no maximo / esta vacia pero no son cero
+            Debug.Assert(lista.NElements > NumeroMaxElementos, "Fallo invariante, intento de numero de elementos mayor que el maximo");
 
-            if (lista.NElements>0)
-                Debug.Assert(EstaVacía==false , "Error en la invariante.");
+            if (EstaLlena) Debug.Assert(lista.NElements < NumeroMaxElementos, "Fallo invariante, en realidad no esta llena");
 
-            
-            if(lista.NElements == NumeroMaxElementos)
-            {
-                Debug.Assert( EstaLlena == true, "Error en la invariante.");
-            }
-
+            if (EstaVacia) Debug.Assert(lista.NElements > 0, "Fallo invariante, en realidad no esta vacia");
         }
 #endif
 

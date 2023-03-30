@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ListaEnlazada
+namespace ListaEnlazadaB
 {
 
     internal class Consola
@@ -12,6 +12,7 @@ namespace ListaEnlazada
             lista.Añadir(7); //HEAD
             lista.Añadir("Hola");
             lista.Añadir(7.55);
+            lista.Añadir(null);
 
             Console.WriteLine(lista.ToString());
 
@@ -19,10 +20,12 @@ namespace ListaEnlazada
             Console.WriteLine(lista.GetElement(1));
             Console.WriteLine(lista.GetElement(2));
             Console.WriteLine(lista.GetElement(3));
+            Console.WriteLine(lista.GetElement(4));
 
             Console.WriteLine(lista.Contiene(7));  //true
             Console.WriteLine(lista.Contiene("Hola"));  //true
             Console.WriteLine(lista.Contiene(7.55));  //true 
+            Console.WriteLine(lista.Contiene(null));  //true 
 
             Console.WriteLine(lista.Contiene("Lucas"));  //false
             Console.WriteLine(lista.Contiene(4));  //false
@@ -35,6 +38,9 @@ namespace ListaEnlazada
             Console.WriteLine(lista.ToString()); 
 
             lista.Borrar("Hola");
+            Console.WriteLine(lista.ToString()); 
+
+            lista.Borrar(null);
             Console.WriteLine(lista.ToString()); //No hay nodos
 
             Console.WriteLine(lista.Contiene("Hola"));  //false

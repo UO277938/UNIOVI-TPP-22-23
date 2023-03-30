@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace ListaEnlazada
+namespace ListaEnlazadaB
 {
 
     public class ListaEnlazada
@@ -10,7 +10,6 @@ namespace ListaEnlazada
         public uint NElements { get; private set; }
 
         private Nodo Head { get { return _head; } set { _head = value; } }
-
 
         public ListaEnlazada()
         {
@@ -51,9 +50,44 @@ namespace ListaEnlazada
             if (Head == null)
                 return false;
 
+            if (valor == null)
+                return BorrarNull();
+
             Nodo aux = Head;
             //Nodo a buscar es la raiz
-            if (Head.Value.Equals(valor))
+            if (Head.Value != null)
+            {
+                if (Head.Value.Equals(valor))
+                {
+                    Head = Head.NextNode;
+                    NElements--;
+                    return true;
+                }
+            }
+
+            //Si el nodo no es la raiz
+            while (aux.NextNode != null)
+            {
+                if (aux.NextNode.Value != null)
+                {
+                    if (aux.NextNode.Value.Equals(valor)) //Si el siguiente tiene el valor
+                    {
+                        aux.NextNode = aux.NextNode.NextNode; //Cortamos su referencia, saltandolo
+                        NElements--;
+                        return true;
+                    }
+                }
+                aux = aux.NextNode; //Seguimos buscando
+            }
+            //No hay nodo con ese valor
+            return false;
+        }
+
+        private bool BorrarNull()
+        {
+            Nodo aux = Head;
+            //Nodo a buscar es la raiz
+            if (Head.Value == null)
             {
                 Head = Head.NextNode;
                 NElements--;
@@ -63,11 +97,13 @@ namespace ListaEnlazada
             //Si el nodo no es la raiz
             while (aux.NextNode != null)
             {
-                if (aux.NextNode.Value.Equals(valor)) //Si el siguiente tiene el valor
+                Console.WriteLine("ENTRA");
+
+                if (aux.NextNode.Value == null) //Si el siguiente tiene el valor
                 {
-                    aux.NextNode = aux.NextNode.NextNode; //Cortamos su referencia, saltandolo
-                    NElements--;
-                    return true;
+                        aux.NextNode = aux.NextNode.NextNode; //Cortamos su referencia, saltandolo
+                        NElements--;
+                        return true;
                 }
                 aux = aux.NextNode; //Seguimos buscando
             }
@@ -81,19 +117,41 @@ namespace ListaEnlazada
             if (Head == null)
                 return false;
 
+            if (valor == null)
+                return ContineNull();
+
             Nodo nodo = Head;
-            if (nodo.Value.Equals(valor))
+            if (nodo.Value != null)
+                if (nodo.Value.Equals(valor))
+                    return true;
+
+            while (nodo.NextNode != null)
+            {
+                if (nodo.NextNode.Value != null)
+                    if (nodo.NextNode.Value.Equals(valor))
+                        return true;
+
+                nodo = nodo.NextNode;
+            }
+            return false;
+        }
+
+        private bool ContineNull()
+        {
+            Nodo nodo = Head;
+            if (nodo.Value == null)
                 return true;
 
             while (nodo.NextNode != null)
             {
-                if (nodo.NextNode.Value.Equals(valor))
+                if (nodo.NextNode.Value == null)
                     return true;
 
                 nodo = nodo.NextNode;
             }
             return false;
         }
+
 
         public object GetElement(uint posicion)
         {

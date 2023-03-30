@@ -31,6 +31,16 @@ namespace Modelo
             return result;
         }
 
+        //Where en Linq
+        public static IEnumerable<T> FiltrarSlooking<T>(this IEnumerable<T> collection, Predicate<T> func)
+        {
+            foreach (T d in collection)
+            {
+                if (func(d))
+                    yield return d;
+            }
+        }
+
         //Aggregate
         public static Q Reducir<T, Q>(this IEnumerable<T> collection, Func<Q, T, Q> func, Q start = default(Q))
         {
@@ -64,6 +74,13 @@ namespace Modelo
                 lista.Add(func(actual));
             return lista;
 
+        }
+
+        //Select en Linq
+        public static IEnumerable<Q> MapPerezoso<T, Q>(this IEnumerable<T> coleccion, Func<T, Q> func)
+        {
+            foreach (T actual in coleccion)
+                yield return func(actual);
         }
 
 

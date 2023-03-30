@@ -6,6 +6,7 @@ using System;
 
 namespace Pruebas
 {
+    [TestClass]
     public class PruebasLinq
     {
 
@@ -68,7 +69,7 @@ namespace Pruebas
             var senMaximo = angulos.Aggregate(0.0, (max, angulo) => angulo.Seno() > max ? angulo.Seno() : max);
             Assert.AreEqual(1.0, senMaximo);
 
-            var numNombre = personas.Aggregate(0, (num, persona) => persona.Nombre.Equals("María") ? num+1 : num);
+            var numNombre = personas.Aggregate(0, (num, persona) => persona.Nombre.Equals("Marï¿½a") ? num+1 : num);
             Assert.AreEqual(2, numNombre);
         }
 
@@ -78,7 +79,7 @@ namespace Pruebas
             //Select es map
 
             IEnumerable<string> apeNoms = personas.Map(persona => new string(persona.Apellido + ", " + persona.Nombre));
-            Assert.AreEqual(apeNoms.First(), "Díaz, María");
+            Assert.AreEqual(apeNoms.First(), "Dï¿½az, Marï¿½a");
             Assert.AreEqual(apeNoms.Last(), "Hevia, Juan");
 
             IEnumerable<int> cuadrante = angulos.Map(angulo => angulo.Grados < 90 ? 1 : angulo.Grados < 180 ? 2 : angulo.Grados < 270 ? 3 : 4);

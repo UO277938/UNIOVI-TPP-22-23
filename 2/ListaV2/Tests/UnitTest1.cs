@@ -16,13 +16,13 @@ namespace ListaEnlazada
         public void Test1()
 
         {
-            Assert.IsTrue(lista.Añadir(7));
-            Assert.IsTrue(lista.Añadir(7));
-            Assert.IsTrue(lista.Añadir(888.44));
-            Assert.IsTrue(lista.Añadir("Hola"));
-            Assert.IsTrue(lista.Añadir("Macarrones"));
-            Assert.IsTrue(lista.Añadir(4.55));
-            Assert.IsTrue(lista.Añadir(7));
+            Assert.IsTrue(lista.AÃ±adir(7));
+            Assert.IsTrue(lista.AÃ±adir(7));
+            Assert.IsTrue(lista.AÃ±adir(888.44));
+            Assert.IsTrue(lista.AÃ±adir("Hola"));
+            Assert.IsTrue(lista.AÃ±adir("Macarrones"));
+            Assert.IsTrue(lista.AÃ±adir(4.55));
+            Assert.IsTrue(lista.AÃ±adir(7));
 
             Assert.IsTrue(lista.Borrar("Hola"));
             Assert.IsTrue(lista.Borrar(7));
